@@ -49,7 +49,7 @@ public class GameController {
                     .rulletDayCount(3)
                     .attendance(true)
                     .build();
-                return ResponseEntity.ok().body(new APIResponse("복권 게임을 실행하였습니다", gameEntity.getAttendance()));
+                return ResponseEntity.ok().body(new APIResponse("출석체크 되었습니다.", gameEntity.getAttendance()));
             }
             default: {
                 return ResponseEntity.ok().body(new APIResponse("이벤트 실행해보세요"));
