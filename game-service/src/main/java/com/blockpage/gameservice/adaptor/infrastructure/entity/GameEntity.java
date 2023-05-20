@@ -32,7 +32,4 @@ public class GameEntity extends BaseEntity {
     @Column
     private Integer lottoDayCount;
 
-    @Column
-    private Boolean attendance;
-
 }

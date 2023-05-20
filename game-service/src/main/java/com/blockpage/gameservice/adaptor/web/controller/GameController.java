@@ -20,7 +20,7 @@ public class GameController {
 
     @GetMapping
     public ResponseEntity<APIResponse> getGame() {
-        GameView gameView = new GameView(2, 2, true);
+        GameView gameView = new GameView(2, 2);
         return ResponseEntity.ok().body(new APIResponse(gameView));
     }
 
@@ -31,7 +31,6 @@ public class GameController {
                 GameEntity gameEntity = GameEntity.builder()
                     .lottoDayCount(3)
                     .rulletDayCount(2)
-                    .attendance(false)
                     .build();
                 return ResponseEntity.ok().body(new APIResponse("룰렛 게임을 실행하였습니다", gameEntity.getRulletDayCount()));
             }
@@ -39,17 +38,8 @@ public class GameController {
                 GameEntity gameEntity = GameEntity.builder()
                     .lottoDayCount(2)
                     .rulletDayCount(3)
-                    .attendance(false)
                     .build();
                 return ResponseEntity.ok().body(new APIResponse("복권 게임을 실행하였습니다", gameEntity.getLottoDayCount()));
-            }
-            case "checks": {
-                GameEntity gameEntity = GameEntity.builder()
-                    .lottoDayCount(3)
-                    .rulletDayCount(3)
-                    .attendance(true)
-                    .build();
-                return ResponseEntity.ok().body(new APIResponse("출석체크 되었습니다.", gameEntity.getAttendance()));
             }
             default: {
                 return ResponseEntity.ok().body(new APIResponse("이벤트 실행해보세요"));

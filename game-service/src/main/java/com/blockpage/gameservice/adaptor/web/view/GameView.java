@@ -13,11 +13,8 @@ public class GameView {
 
     private Integer lottoDayCount;
 
-    private Boolean attendance;
-
-    public GameView(Integer rulletDayCount, Integer lottoDayCount, Boolean attendance) {
+    public GameView(Integer rulletDayCount, Integer lottoDayCount) {
         this.rulletDayCount = rulletDayCount;
         this.lottoDayCount = lottoDayCount;
-        this.attendance = attendance;
     }
 }
