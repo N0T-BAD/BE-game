@@ -1,5 +1,6 @@
 package com.blockpage.gameservice.adaptor.infrastructure.entity;
 
+import com.blockpage.gameservice.domain.Game;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -27,9 +28,17 @@ public class GameEntity extends BaseEntity {
     private Long memberId;
 
     @Column
-    private Integer rulletDayCount;
+    private Integer rouletteDayCount;
 
     @Column
     private Integer lottoDayCount;
+
+    public static GameEntity postGame(Game game) {
+        return GameEntity.builder()
+            .memberId(game.getMemberId())
+            .rouletteDayCount(3)
+            .lottoDayCount(3)
+            .build();
+    }
 
 }
