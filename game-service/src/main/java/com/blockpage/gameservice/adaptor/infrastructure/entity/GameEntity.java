@@ -41,4 +41,21 @@ public class GameEntity extends BaseEntity {
             .build();
     }
 
+    public static GameEntity roulette(GameEntity gameEntity) {
+        return GameEntity.builder()
+            .id(gameEntity.getId())
+            .memberEmail(gameEntity.getMemberEmail())
+            .rouletteDayCount(gameEntity.getRouletteDayCount() - 1)
+            .lottoDayCount(gameEntity.getLottoDayCount())
+            .build();
+    }
+
+    public static GameEntity lotto(GameEntity gameEntity) {
+        return GameEntity.builder()
+            .id(gameEntity.getId())
+            .memberEmail(gameEntity.getMemberEmail())
+            .rouletteDayCount(gameEntity.getRouletteDayCount())
+            .lottoDayCount(gameEntity.getLottoDayCount() - 1)
+            .build();
+    }
 }

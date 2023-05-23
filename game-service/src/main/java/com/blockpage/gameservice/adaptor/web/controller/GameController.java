@@ -4,12 +4,17 @@ import com.blockpage.gameservice.adaptor.web.view.ApiResponse;
 import com.blockpage.gameservice.adaptor.web.view.GameView;
 import com.blockpage.gameservice.application.port.in.GameUseCase;
 import com.blockpage.gameservice.application.port.in.GameUseCase.GetQuery;
+import com.blockpage.gameservice.application.port.in.GameUseCase.PlayQuery;
+import com.blockpage.gameservice.application.port.in.RequestGame;
+import com.blockpage.gameservice.application.port.out.GameDto;
 import javax.servlet.http.HttpSession;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PutMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -27,29 +32,14 @@ public class GameController {
             .body(new ApiResponse<>(new GameView(gameUseCase.getGameQuery(new GetQuery(session)))));
     }
 
-//    @PutMapping
-//    public ResponseEntity<ApiResponse> updateGame(@RequestBody RequestGame requestGame, HttpSession session) {
-//        //TODO  게임실행,보상로직 구현 및 블럭서비스 연결필요
-//
-//        switch (type) {
-//            case "rullet": {
-//                GameEntity gameEntity = GameEntity.builder()
-//                    .lottoDayCount(3)
-//                    .rouletteDayCount(2)
-//                    .build();
-//                return ResponseEntity.ok().body(new ApiResponse(new GameView("룰렛게임을 실행했습니다.")));
-//            }
-//            case "lotto": {
-//                GameEntity gameEntity = GameEntity.builder()
-//                    .lottoDayCount(2)
-//                    .rouletteDayCount(3)
-//                    .build();
-//                return ResponseEntity.ok().body(new ApiResponse(new GameView("복권게임을 실행했습니다.")));
-//            }
-//            default: {
-//                return ResponseEntity.ok().body(new ApiResponse("이벤트 실행해보세요"));
-//            }
-//        }
-//    }
+    @PutMapping
+    public ResponseEntity<ApiResponse<GameView>> updateGame(@RequestBody RequestGame requestGame, HttpSession session) {
+        GameDto gameDto = gameUseCase.playGameQuery(PlayQuery.toQuery(requestGame, session));
+        if (gameDto.getCompensation()) {
+            return ResponseEntity.status(HttpStatus.CREATED).body(new ApiResponse<>(new GameView("축하합니다. 블럭이 지급되었습니다.")));
+        } else {
+            return ResponseEntity.status(HttpStatus.CREATED).body(new ApiResponse<>(new GameView("꽝, 다음 기회에...")));
+        }
+    }
 }
 
