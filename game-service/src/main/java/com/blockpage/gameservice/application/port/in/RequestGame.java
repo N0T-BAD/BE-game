@@ -5,8 +5,6 @@ import lombok.Getter;
 @Getter
 public class RequestGame {
 
-    private String memberEmail;
-
     private String type;
 
     private Boolean compensation;
