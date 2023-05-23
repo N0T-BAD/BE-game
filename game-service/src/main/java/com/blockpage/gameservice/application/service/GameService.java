@@ -14,12 +14,7 @@ public class GameService implements GameUseCase {
     private final GamePort gamePort;
 
     @Override
-    public void postGameQuery(PostQuery postQuery) {
-        gamePort.postGame(new Game(postQuery.getMemberId()));
-    }
-
-    @Override
     public GameDto getGameQuery(GetQuery getQuery) {
-        return GameDto.fromGame(gamePort.getGame(new Game(getQuery.getMemberId())));
+        return GameDto.fromGame(gamePort.getGame(new Game(getQuery.getMemberEmail())));
     }
 }
