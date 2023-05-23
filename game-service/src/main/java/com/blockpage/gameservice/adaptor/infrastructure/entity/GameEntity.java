@@ -25,7 +25,7 @@ public class GameEntity extends BaseEntity {
     private Long id;
 
     @Column
-    private Long memberId;
+    private String memberEmail;
 
     @Column
     private Integer rouletteDayCount;
@@ -35,7 +35,7 @@ public class GameEntity extends BaseEntity {
 
     public static GameEntity postGame(Game game) {
         return GameEntity.builder()
-            .memberId(game.getMemberId())
+            .memberEmail(game.getMemberEmail())
             .rouletteDayCount(3)
             .lottoDayCount(3)
             .build();

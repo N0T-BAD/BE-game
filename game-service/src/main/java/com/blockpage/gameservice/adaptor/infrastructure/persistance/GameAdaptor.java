@@ -18,17 +18,8 @@ public class GameAdaptor implements GamePort {
     private final GameRepository gameRepository;
 
     @Override
-    public void postGame(Game game) {
-        Optional<GameEntity> gameEntity = gameRepository.findByMemberIdAndRegisterTimeAfter(game.getMemberId(),
-            LocalDate.now().minusDays(1).atTime(11, 59, 59));
-        if (gameEntity.isEmpty()) {
-            gameRepository.save(GameEntity.postGame(game));
-        }
-    }
-
-    @Override
     public Game getGame(Game game) {
-        Optional<GameEntity> gameEntity = gameRepository.findByMemberIdAndRegisterTimeAfter(game.getMemberId(),
+        Optional<GameEntity> gameEntity = gameRepository.findByMemberEmailAndRegisterTimeAfter(game.getMemberEmail(),
             LocalDate.now().minusDays(1).atTime(11, 59, 59));
         if (gameEntity.isPresent()) {
             return Game.fromGameEntity(gameEntity.get());

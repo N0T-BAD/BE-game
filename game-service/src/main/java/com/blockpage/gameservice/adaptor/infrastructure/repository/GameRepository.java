@@ -7,6 +7,6 @@ import org.springframework.data.jpa.repository.JpaRepository;
 
 public interface GameRepository extends JpaRepository<GameEntity, Long> {
 
-    Optional<GameEntity> findByMemberIdAndRegisterTimeAfter(Long memberId, LocalDateTime today);
+    Optional<GameEntity> findByMemberEmailAndRegisterTimeAfter(String memberEmail, LocalDateTime today);
 
 }

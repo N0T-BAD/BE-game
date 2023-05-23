@@ -10,14 +10,14 @@ import lombok.Getter;
 @AllArgsConstructor
 public class Game {
 
-    private Long memberId;
+    private String memberEmail;
 
     private Integer rouletteDayCount;
 
     private Integer lottoDayCount;
 
-    public Game(Long memberId) {
-        this.memberId = memberId;
+    public Game(String memberEmail) {
+        this.memberEmail= memberEmail;
     }
 
     public static Game fromGameEntity(GameEntity gameEntity) {

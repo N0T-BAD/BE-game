@@ -5,8 +5,11 @@ import lombok.Getter;
 @Getter
 public class RequestGame {
 
-    private Long memberId;
+    private String memberEmail;
 
     private String type;
+
+    private Boolean compensation;
+    //블럭 당첨 시 true
 
 }
