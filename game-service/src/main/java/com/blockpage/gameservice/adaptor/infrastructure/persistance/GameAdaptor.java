@@ -10,6 +10,7 @@ import com.blockpage.gameservice.domain.Game;
 import com.blockpage.gameservice.exception.CustomException;
 import java.time.LocalDate;
 import java.util.Optional;
+import javax.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Component;
@@ -22,6 +23,7 @@ public class GameAdaptor implements GamePort {
     private final GameRepository gameRepository;
 
     @Override
+    @Transactional
     public Game getGame(Game game) {
         Optional<GameEntity> gameEntity = gameRepository.findByMemberEmailAndRegisterTimeAfter(game.getMemberEmail(),
             LocalDate.now().minusDays(1).atTime(11, 59, 59));
@@ -36,13 +38,16 @@ public class GameAdaptor implements GamePort {
     }
 
     @Override
+    @Transactional
     public void playGame(Game game) {
         GameEntity gameEntity = gameRepository.findByMemberEmailAndRegisterTimeAfter(game.getMemberEmail(),
             LocalDate.now().minusDays(1).atTime(11, 59, 59)).get();
         if (game.getType().equals("roulette") && gameEntity.getRouletteDayCount() > 0) {
-            gameRepository.save(GameEntity.roulette(gameEntity));
+            gameEntity.setRouletteDayCount(gameEntity.getRouletteDayCount() - 1);
+            gameRepository.save(gameEntity);
         } else if (game.getType().equals("lotto") && gameEntity.getLottoDayCount() > 0) {
-            gameRepository.save(GameEntity.lotto(gameEntity));
+            gameEntity.setLottoDayCount(gameEntity.getLottoDayCount() - 1);
+            gameRepository.save(gameEntity);
         } else if (game.getType().equals("roulette") || game.getType().equals("lotto")) {
             throw new CustomException(GAME_UNAVAILABLE.getMessage(), GAME_UNAVAILABLE.getHttpStatus());
         } else {
