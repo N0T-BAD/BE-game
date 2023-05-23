@@ -1,9 +1,13 @@
 package com.blockpage.gameservice.adaptor.infrastructure.persistance;
 
+import static com.blockpage.gameservice.exception.ErrorCode.GAME_BAD_REQUEST;
+import static com.blockpage.gameservice.exception.ErrorCode.GAME_UNAVAILABLE;
+
 import com.blockpage.gameservice.adaptor.infrastructure.entity.GameEntity;
 import com.blockpage.gameservice.adaptor.infrastructure.repository.GameRepository;
 import com.blockpage.gameservice.application.port.out.GamePort;
 import com.blockpage.gameservice.domain.Game;
+import com.blockpage.gameservice.exception.CustomException;
 import java.time.LocalDate;
 import java.util.Optional;
 import lombok.RequiredArgsConstructor;
@@ -28,6 +32,21 @@ public class GameAdaptor implements GamePort {
             gameRepository.save(postGame);
             return Game.fromGameEntity(postGame);
 
+        }
+    }
+
+    @Override
+    public void playGame(Game game) {
+        GameEntity gameEntity = gameRepository.findByMemberEmailAndRegisterTimeAfter(game.getMemberEmail(),
+            LocalDate.now().minusDays(1).atTime(11, 59, 59)).get();
+        if (game.getType().equals("roulette") && gameEntity.getRouletteDayCount() > 0) {
+            gameRepository.save(GameEntity.roulette(gameEntity));
+        } else if (game.getType().equals("lotto") && gameEntity.getLottoDayCount() > 0) {
+            gameRepository.save(GameEntity.lotto(gameEntity));
+        } else if (game.getType().equals("roulette") || game.getType().equals("lotto")) {
+            throw new CustomException(GAME_UNAVAILABLE.getMessage(), GAME_UNAVAILABLE.getHttpStatus());
+        } else {
+            throw new CustomException(GAME_BAD_REQUEST.getMessage(), GAME_BAD_REQUEST.getHttpStatus());
         }
     }
 }
