@@ -10,7 +10,8 @@ eureka:
 
 spring:
   application:
-    name: game-server
+    name: game-service
+    
   datasource:
     driver-class-name: com.mysql.cj.jdbc.Driver
     url: ${spring.datasource.url}
