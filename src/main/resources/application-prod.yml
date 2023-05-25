@@ -1,5 +1,12 @@
 server:
-  port: 8083
+  port: 0
+
+eureka:
+  client:
+    register-with-eureka: true
+    fetch-registry: true
+    service-url:
+      defaultZone: ${eureka.client.service-url.defaultZone}
 
 spring:
   datasource:
@@ -13,7 +20,7 @@ spring:
         dialect: org.hibernate.dialect.MySQL8Dialect
         format_sql: true
     hibernate:
-      ddl-auto: create
+      ddl-auto: update
     show-sql: true
 
   cloud:
@@ -31,7 +38,3 @@ feign:
         logger-level: FULL
   httpclient:
     enabled: true
-
-block:
-  root: http://localhost:8080
-  post: /v1/blocks
