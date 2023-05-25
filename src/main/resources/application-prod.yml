@@ -9,6 +9,8 @@ eureka:
       defaultZone: ${eureka.client.service-url.defaultZone}
 
 spring:
+  application:
+    name: game-server
   datasource:
     driver-class-name: com.mysql.cj.jdbc.Driver
     url: ${spring.datasource.url}
