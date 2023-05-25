@@ -12,12 +12,11 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestParam;
 
 @FeignClient(name = "block-service",
-    url = "${block.root}",
     configuration = BlockServiceFeignConfig.class,
     fallback = BlockServiceOpenFeign.Fallback.class)
 public interface BlockServiceOpenFeign {
 
-    @PostMapping(value = "${block.post}")
+    @PostMapping(value = "/block-service/v1/blocks")
     ResponseEntity postBlock(@RequestParam("type") String type, @RequestBody RequestBlock requestBlock);
 
     @Component
