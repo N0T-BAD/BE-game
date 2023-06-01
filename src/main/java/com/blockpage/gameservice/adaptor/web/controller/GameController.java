@@ -15,26 +15,27 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestHeader;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
 @RequiredArgsConstructor
-@RequestMapping("/v1/games")
+@RequestMapping("/game-service/v1/games")
 @Slf4j
 public class GameController {
 
     private final GameUseCase gameUseCase;
 
     @GetMapping
-    public ResponseEntity<ApiResponse<GameView>> getGame(HttpSession session) {
+    public ResponseEntity<ApiResponse<GameView>> getGame(@RequestHeader String memberId) {
         return ResponseEntity.status(HttpStatus.OK)
-            .body(new ApiResponse<>(new GameView(gameUseCase.getGameQuery(new GetQuery(session)))));
+            .body(new ApiResponse<>(new GameView(gameUseCase.getGameQuery(new GetQuery(memberId)))));
     }
 
     @PutMapping
-    public ResponseEntity<ApiResponse<GameView>> updateGame(@RequestBody RequestGame requestGame, HttpSession session) {
-        GameDto gameDto = gameUseCase.playGameQuery(PlayQuery.toQuery(requestGame, session));
+    public ResponseEntity<ApiResponse<GameView>> updateGame(@RequestBody RequestGame requestGame, @RequestHeader String memberId) {
+        GameDto gameDto = gameUseCase.playGameQuery(PlayQuery.toQuery(requestGame, memberId));
         if (gameDto.getCompensation()) {
             return ResponseEntity.status(HttpStatus.CREATED).body(new ApiResponse<>(new GameView("축하합니다. 블럭이 지급되었습니다.")));
         } else {

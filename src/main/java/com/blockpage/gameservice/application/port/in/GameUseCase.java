@@ -16,9 +16,7 @@ public interface GameUseCase {
 
         private String memberEmail;
 
-        public GetQuery(HttpSession session) {
-//            String memberEmail = (String) session.getAttribute("id");
-            String memberEmail = "test@naver.com";
+        public GetQuery(String memberEmail) {
             this.memberEmail = memberEmail;
         }
     }
@@ -26,21 +24,19 @@ public interface GameUseCase {
     @Getter
     @Builder
     class PlayQuery {
+
         private String memberEmail;
 
         private String type;
 
         private Boolean compensation;
 
-        public static PlayQuery toQuery(RequestGame requestGame,HttpSession session){
-//            String memberEmail = (String) session.getAttribute("id");
-            String memberEmail = "test@naver.com";
+        public static PlayQuery toQuery(RequestGame requestGame, String memberEmail) {
             return PlayQuery.builder()
                 .memberEmail(memberEmail)
                 .type(requestGame.getType())
                 .compensation(requestGame.getCompensation())
                 .build();
         }
-
     }
 }
