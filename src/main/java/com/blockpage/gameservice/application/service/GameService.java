@@ -25,7 +25,7 @@ public class GameService implements GameUseCase {
     public GameDto playGameQuery(PlayQuery playQuery) {
         gamePort.playGame(Game.playGame(playQuery));
         if(playQuery.getCompensation()){
-            blockPort.postBlock(new RequestBlock(playQuery.getMemberEmail()));
+            blockPort.postBlock(playQuery.getMemberEmail(), new RequestBlock(playQuery.getMemberEmail()));
         }
         return new GameDto(playQuery.getCompensation());
     }
