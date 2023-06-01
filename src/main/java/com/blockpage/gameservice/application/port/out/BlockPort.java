@@ -4,5 +4,5 @@ import com.blockpage.gameservice.adaptor.infrastructure.external.block.requestbo
 import org.springframework.http.ResponseEntity;
 
 public interface BlockPort {
-    ResponseEntity postBlock(RequestBlock requestBlock);
+    ResponseEntity postBlock(String memberId ,RequestBlock requestBlock);
 }
