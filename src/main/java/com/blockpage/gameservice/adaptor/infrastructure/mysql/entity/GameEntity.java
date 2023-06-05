@@ -1,4 +1,4 @@
-package com.blockpage.gameservice.adaptor.infrastructure.entity;
+package com.blockpage.gameservice.adaptor.infrastructure.mysql.entity;
 
 import com.blockpage.gameservice.domain.Game;
 import javax.persistence.Column;

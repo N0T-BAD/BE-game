@@ -1,6 +1,6 @@
-package com.blockpage.gameservice.adaptor.infrastructure.repository;
+package com.blockpage.gameservice.adaptor.infrastructure.mysql.repository;
 
-import com.blockpage.gameservice.adaptor.infrastructure.entity.GameEntity;
+import com.blockpage.gameservice.adaptor.infrastructure.mysql.entity.GameEntity;
 import java.time.LocalDateTime;
 import java.util.Optional;
 import org.springframework.data.jpa.repository.JpaRepository;

@@ -1,6 +1,6 @@
 package com.blockpage.gameservice.domain;
 
-import com.blockpage.gameservice.adaptor.infrastructure.entity.GameEntity;
+import com.blockpage.gameservice.adaptor.infrastructure.mysql.entity.GameEntity;
 import com.blockpage.gameservice.application.port.in.GameUseCase.PlayQuery;
 import lombok.AllArgsConstructor;
 import lombok.Builder;

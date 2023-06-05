@@ -1,10 +1,10 @@
-package com.blockpage.gameservice.adaptor.infrastructure.persistance;
+package com.blockpage.gameservice.adaptor.infrastructure.mysql.persistance;
 
 import static com.blockpage.gameservice.exception.ErrorCode.GAME_BAD_REQUEST;
 import static com.blockpage.gameservice.exception.ErrorCode.GAME_UNAVAILABLE;
 
-import com.blockpage.gameservice.adaptor.infrastructure.entity.GameEntity;
-import com.blockpage.gameservice.adaptor.infrastructure.repository.GameRepository;
+import com.blockpage.gameservice.adaptor.infrastructure.mysql.entity.GameEntity;
+import com.blockpage.gameservice.adaptor.infrastructure.mysql.repository.GameRepository;
 import com.blockpage.gameservice.application.port.out.GamePort;
 import com.blockpage.gameservice.domain.Game;
 import com.blockpage.gameservice.exception.CustomException;
